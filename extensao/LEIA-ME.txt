@@ -1,0 +1,24 @@
+MANGA TRADUTOR NO PRÓPRIO SITE — VERSÃO 1.0
+
+O QUE FAZ
+1. Abra um capítulo de mangá no navegador.
+2. Toque no botão flutuante “Traduzir mangá”.
+3. Toque em “Detectar páginas”.
+4. Escolha uma imagem e toque em “Traduzir texto da imagem”.
+5. Toque em “Traduzir para português”.
+
+INSTALAÇÃO NO ANDROID
+Esta extensão é no formato Chromium (Manifest V3). O Chrome comum do Android não instala extensões. Use um navegador Android compatível com extensões Chromium, como Kiwi Browser se disponível na sua região/versão:
+1. Baixe o repositório como ZIP pelo GitHub.
+2. Extraia a pasta.
+3. No navegador compatível, abra a página de extensões e ative o modo desenvolvedor.
+4. Carregue a pasta extensao (ou o pacote descompactado conforme a opção do navegador).
+5. Abra um capítulo e recarregue a página.
+
+LIMITAÇÕES
+- OCR depende do serviço de demonstração OCR.Space (chave pública compartilhada, com limites).
+- Tradução usa endpoint público não oficial do Google; pode mudar ou limitar acesso.
+- O texto traduzido aparece no painel, não substitui as letras dentro dos balões.
+- Algumas páginas bloqueiam imagens, canvas ou scripts; sites com proteção/login podem impedir o funcionamento.
+- Use apenas conteúdo que você tem direito de acessar.
+- O botão flutuante aparece em páginas web em geral; feche o painel quando não precisar.
