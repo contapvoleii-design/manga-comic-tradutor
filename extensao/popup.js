@@ -1,0 +1,1 @@
+document.getElementById("open").addEventListener("click",async()=>{const [tab]=await chrome.tabs.query({active:true,currentWindow:true});try{await chrome.tabs.sendMessage(tab.id,{action:"OPEN_TRANSLATOR"});document.getElementById("msg").textContent="Painel ativado!";}catch(e){document.getElementById("msg").textContent="Recarregue a página e tente novamente.";}});
