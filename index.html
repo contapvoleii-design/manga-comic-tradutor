@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#171323"><meta name="description" content="Tradutor de mangás e quadrinhos">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+  <title>Manga & Comic Tradutor</title>
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="brand-icon">漫</span><div><strong>Manga & Comic</strong><small>TRADUTOR</small></div></div><span class="status">PT-BR</span></header>
+<main>
+<section class="intro"><p class="eyebrow">LEIA NO SEU IDIOMA</p><h1>Seu mangá,<br><span>em português.</span></h1><p>Importe uma página, reconheça os textos e prepare uma versão traduzida.</p></section>
+<section class="workspace">
+<div class="toolbar"><h2>Traduzir página</h2><button id="clearBtn" class="ghost" type="button">Limpar</button></div>
+<label class="dropzone" id="dropzone" for="fileInput"><span class="upload-icon">＋</span><strong>Escolher imagem</strong><small>PNG, JPG ou WEBP • ou solte o arquivo aqui</small><input id="fileInput" type="file" accept="image/*" hidden></label>
+<div class="preview-wrap" id="previewWrap" hidden><img id="preview" alt="Página importada"><canvas id="resultCanvas" hidden></canvas></div>
+<div class="actions"><button id="ocrBtn" class="primary" disabled>① Reconhecer texto (OCR)</button><button id="translateBtn" class="secondary" disabled>② Traduzir para PT-BR</button><button id="exportBtn" class="secondary" disabled>↓ Exportar imagem</button></div>
+<div class="progress" id="progress" hidden><div id="progressBar"></div></div><p id="message" class="message" role="status">Importe uma imagem para começar.</p>
+<label class="field-label" for="sourceText">Texto reconhecido</label><textarea id="sourceText" rows="5" placeholder="O texto detectado aparecerá aqui. Você também pode editar manualmente."></textarea>
+<label class="field-label" for="translatedText">Tradução em português</label><textarea id="translatedText" rows="5" placeholder="A tradução aparecerá aqui."></textarea>
+<p class="note">A tradução automática usa um serviço público de demonstração. Para produção, configure um serviço próprio. Revise o resultado antes de exportar.</p>
+</section>
+</main><footer>Projeto independente • Manga & Comic Tradutor</footer>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js"></script>
+</body></html>
