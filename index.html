@@ -12,6 +12,11 @@
 <section class="intro"><p class="eyebrow">LEIA NO SEU IDIOMA</p><h1>Seu mangá,<br><span>em português.</span></h1><p>Importe uma página, reconheça os textos e prepare uma versão traduzida.</p></section>
 <section class="workspace">
 <div class="toolbar"><h2>Traduzir página</h2><button id="clearBtn" class="ghost" type="button">Limpar</button></div>
+<div class="url-import">
+<label class="field-label" for="chapterUrl">Ou cole o link do mangá / capítulo</label>
+<div class="url-row"><input id="chapterUrl" type="url" inputmode="url" placeholder="https://site.com/manga/capitulo-1"><button id="urlBtn" class="primary" type="button">Buscar capítulo</button></div>
+<small class="url-help">Depois de localizar uma página compatível, use o OCR e a tradução abaixo. Alguns sites bloqueiam acesso automático.</small>
+</div>
 <label class="dropzone" id="dropzone" for="fileInput"><span class="upload-icon">＋</span><strong>Escolher imagem</strong><small>PNG, JPG ou WEBP • ou solte o arquivo aqui</small><input id="fileInput" type="file" accept="image/*" hidden></label>
 <div class="preview-wrap" id="previewWrap" hidden><img id="preview" alt="Página importada"><canvas id="resultCanvas" hidden></canvas></div>
 <label class="field-label" for="ocrLanguage">Idioma do texto original</label><select id="ocrLanguage"><option value="eng">Inglês</option><option value="jpn">Japonês</option><option value="kor">Coreano</option><option value="chi_sim">Chinês simplificado</option><option value="eng+jpn">Inglês + japonês</option></select><div class="actions"><button id="ocrBtn" class="primary" disabled>① Reconhecer texto (OCR)</button><button id="translateBtn" class="secondary" disabled>② Traduzir para PT-BR</button><button id="exportBtn" class="secondary" disabled>↓ Exportar imagem</button></div>
