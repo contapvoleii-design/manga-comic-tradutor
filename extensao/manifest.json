@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Manga Tradutor no Site",
+  "version": "1.0.0",
+  "description": "Abre um painel no próprio site de mangá para identificar imagens e traduzir texto.",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://api.ocr.space/*",
+    "https://translate.googleapis.com/*",
+    "https://*/*",
+    "http://*/*"
+  ],
+  "action": {
+    "default_title": "Manga Tradutor",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
