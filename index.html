@@ -17,7 +17,7 @@
 <div class="url-row"><input id="chapterUrl" type="url" inputmode="url" placeholder="https://site.com/manga/capitulo-1"><button id="urlBtn" class="primary" type="button">Buscar capítulo</button></div>
 <small class="url-help">Tenta localizar várias páginas do capítulo. O resultado depende de o site permitir acesso externo.</small>
 </div>
-<label class="dropzone" id="dropzone" for="fileInput"><span class="upload-icon">＋</span><strong>Escolher imagem</strong><small>PNG, JPG ou WEBP • ou solte o arquivo aqui</small><input id="fileInput" type="file" accept="image/*" hidden></label>
+<label class="dropzone" id="dropzone" for="fileInput"><span class="upload-icon">＋</span><strong>Escolher imagens</strong><small>PNG, JPG ou WEBP • ou solte o arquivo aqui</small><input id="fileInput" type="file" accept="image/*" multiple hidden></label>
 <div class="chapter-tools" id="chapterTools" hidden><div class="chapter-heading"><strong id="pageCount">0 páginas encontradas</strong><span id="batchStatus">Capítulo</span></div><div id="pageList" class="page-list"></div><div class="actions"><button id="chapterBtn" class="primary" type="button">③ Traduzir capítulo inteiro</button><button id="downloadAllBtn" class="secondary" type="button" disabled>↓ Baixar páginas traduzidas</button></div></div>
 <div class="preview-wrap" id="previewWrap" hidden><img id="preview" alt="Página importada"><canvas id="resultCanvas" hidden></canvas></div>
 <label class="field-label" for="ocrLanguage">Idioma do texto original</label><select id="ocrLanguage"><option value="eng">Inglês</option><option value="jpn">Japonês</option><option value="kor">Coreano</option><option value="chi_sim">Chinês simplificado</option><option value="eng+jpn">Inglês + japonês</option></select><div class="actions"><button id="ocrBtn" class="primary" disabled>① Reconhecer texto (OCR)</button><button id="translateBtn" class="secondary" disabled>② Traduzir para PT-BR</button><button id="exportBtn" class="secondary" disabled>↓ Exportar imagem</button></div>
@@ -27,5 +27,5 @@
 <p class="note">Edição livre: sem cadastro obrigatório, sem anúncios integrados e sem marca-d'água na exportação. OCR e exportação ficam disponíveis sem bloqueios artificiais. A tradução automática usa um serviço público de demonstração. Para produção, configure um serviço próprio. Revise o resultado antes de exportar.</p>
 </section>
 </main><footer>Projeto independente • Manga & Comic Tradutor</footer>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script><script src="app.js"></script>
 </body></html>
