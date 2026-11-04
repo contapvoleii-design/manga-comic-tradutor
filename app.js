@@ -17,21 +17,33 @@ function extractImageUrls(body){const urls=[];const add=u=>{if(!u)return;u=u.rep
 urlBtn.addEventListener("click",async()=>{let page;try{page=new URL(chapterUrl.value.trim());if(!["http:","https:"].includes(page.protocol))throw 0}catch(e){say("Cole um link válido começando com https://");return}urlBtn.disabled=true;pages=[];nextChapterUrl="";nextChapterBtn.disabled=true;say("Lendo o capítulo e procurando páginas…");try{const r=await fetch("https://r.jina.ai/"+page.href,{headers:{Accept:"text/plain"}});if(!r.ok)throw Error("reader");const body=await r.text();nextChapterUrl=extractNextChapter(body,page.href);nextChapterBtn.disabled=!nextChapterUrl;const urls=extractImageUrls(body);if(!urls.length)throw Error("no pages");let failures=0;for(let i=0;i<urls.length;i++){say("Carregando página "+(i+1)+" de "+urls.length+"…");try{const file=await fetchImage(urls[i]);addPage(file); }catch(e){failures++}}if(!pages.length)throw Error("blocked");activePage=0;selectPage(0);say(pages.length+" página(s) importadas. "+(failures?failures+" não puderam ser carregadas. ":"")+"Toque em Traduzir capítulo inteiro.");}catch(e){say("Não foi possível importar as páginas desse site. Alguns leitores bloqueiam acesso externo. Tente selecionar várias imagens baixadas.");}finally{urlBtn.disabled=false}});
 nextChapterBtn.addEventListener("click",()=>{if(!nextChapterUrl)return;chapterUrl.value=nextChapterUrl;urlBtn.click();window.scrollTo({top:0,behavior:"smooth"})});
 async function recognize(p){const result=await Tesseract.recognize(p.file,ocrLanguage.value||"eng",{logger:m=>{if(m.status)say("OCR: "+m.status)}});p.source=result.data.text.trim();return p.source}
+function splitForTranslation(text,max=450){
+ const parts=[];let rest=String(text||"").trim();
+ while(rest.length>max){let cut=rest.lastIndexOf(" ",max);if(cut<Math.floor(max*.55))cut=max;parts.push(rest.slice(0,cut).trim());rest=rest.slice(cut).trim();}
+ if(rest)parts.push(rest);return parts;
+}
+async function translateChunk(chunk,source){
+ // Tenta primeiro o serviço LibreTranslate/Argos; usa MyMemory como alternativa.
+ try{
+  const r=await fetch("https://translate.argosopentech.com/translate",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({q:chunk,source,target:"pt",format:"text"})});
+  if(r.ok){const data=await r.json();if(data.translatedText?.trim())return data.translatedText.trim();}
+ }catch(e){}
+ const url="https://api.mymemory.translated.net/get?q="+encodeURIComponent(chunk)+"&langpair="+encodeURIComponent(source+"|pt-BR");
+ const r=await fetch(url,{headers:{Accept:"application/json"}});
+ if(!r.ok)throw Error("Os serviços de tradução estão indisponíveis.");
+ const data=await r.json();
+ if(data.responseStatus!==200||!data.responseData?.translatedText)throw Error(data.responseDetails||"Não foi possível traduzir este trecho.");
+ const decoder=document.createElement("textarea");decoder.innerHTML=data.responseData.translatedText;
+ return decoder.value;
+}
 async function translate(p){
  if(!p.source?.trim())return "";
- const chunks=p.source.match(/[\\s\\S]{1,450}/g)||[];
- const pair=translateSource()+"|pt-BR";
- const translated=[];
+ const source=translateSource(),chunks=splitForTranslation(p.source),translated=[];
  for(let i=0;i<chunks.length;i++){
   say("Traduzindo trecho "+(i+1)+" de "+chunks.length+"…");
-  const endpoint="https://api.mymemory.translated.net/get?q="+encodeURIComponent(chunks[i])+"&langpair="+encodeURIComponent(pair);
-  const response=await fetch(endpoint);
-  if(!response.ok)throw Error("translate");
-  const data=await response.json();
-  if(Number(data.responseStatus)!==200||!data.responseData?.translatedText)throw Error(data.responseDetails||"translate");
-  translated.push(data.responseData.translatedText);
+  translated.push(await translateChunk(chunks[i],source));
  }
- p.translated=translated.join(" ");
+ p.translated=translated.join(" ").trim();
  return p.translated;
 }
 ocrBtn.addEventListener("click",async()=>{const p=pages[activePage];if(!p)return;ocrBtn.disabled=true;progress.hidden=false;progressBar.style.width="10%";try{await recognize(p);sourceText.value=p.source;say("OCR concluído nesta página. Revise e toque em Traduzir.");progressBar.style.width="100%";}catch(e){say("Falha no OCR. Tente uma imagem mais nítida.");}finally{ocrBtn.disabled=false}});
